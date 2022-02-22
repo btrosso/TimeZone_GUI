@@ -10,8 +10,6 @@ buddy_dict = {
 
 # -------------------------------TIME ZONE OFFSET-------------------------------#
 #  contributed by JameaPlays
-
-
 def select_tz(selection):
     """Assigns the time offset in hours to the new_tz_offset variable based on dropdown selection"""
     global new_tz_offset
@@ -25,26 +23,16 @@ def select_tz(selection):
 
 
 def listbox_used(event):
-    """
-    This is just driver code and will most likely be altered or removed.
-    """
     # Gets current selection from listbox
     print(listbox.get(listbox.curselection()))
 
-
 def add_buddy_to_list():
-    """
-    Work in progress.
-    This function will grab the name and timezone from the corresponding widgets.
-    It will add a new entry into the buddy_dict with the name and float offset value corresponding
-        the time zone.
-    """
     global tz_dict, buddy_dict
     name = buddy_name_entry.get()
     tz = variable.get()
     buddy_dict["name"] = name
     # TODO: 1. pull the offset number from the tz_dict using the variable given from the dropdown
-    # buddy_dict["tz_offset"] =
+    #buddy_dict["tz_offset"] =
 
 
 # -------------------------------SCREEN SETUP-------------------------------#
@@ -61,10 +49,7 @@ canvas1.grid(column=1, row=1)
 # Display image
 canvas1.create_image(250, 150, image=bg)
 
-# TODO: 3. Turn this text into a clock that displays the current time for the selected buddy
 canvas1.create_text(250, 30, text="Welcome", fill="white", font=("Arial", 20, "bold"))
-
-# TODO: 4. Create another canvas1.create_text to display the USERS current time
 
 # create a frame for the buddy label and listbox
 frame1 = Frame(background="white", width=100, height=290, bg="black")
@@ -75,7 +60,6 @@ buddy_label.grid(column=0, row=0)
 
 # Listbox
 listbox = Listbox(frame1, width=15, height=16, bg="black", fg="white")
-# TODO: 2. use list comprehension to modify the buddy_list to read the values and grab only the names from buddy_dict
 buddy_list = ["Buddy 1", "Buddy 2"]
 for item in buddy_list:
     listbox.insert(buddy_list.index(item), item)

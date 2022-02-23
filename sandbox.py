@@ -3,16 +3,20 @@ import pandas
 # -------------------------------CONSTANTS & Global Var-------------------------------#
 FONT_NAME = "Arial"
 DEFAULT_LIST_HEIGHT = 20
-buddy_dict = {
-    "name": "example name",
-    "tz_offset": 5
-}
+buddy_dict = [
+    {"name": "example name", "tz_offset": 5},
+    {"name": "Buddy 1", "tz_offset": -5},
+    {"name": "Buddy 2", "tz_offset": 0},
+]
+
+
+
 
 # -------------------------------TIME ZONE OFFSET-------------------------------#
 #  contributed by JameaPlays
 def select_tz(selection):
     """Assigns the time offset in hours to the new_tz_offset variable based on dropdown selection"""
-    global new_tz_offset
+    global new_buddy_tz
     selection = variable.get()
     # Gets the name of the timezone from the dropdown selection
     tz_selected = selection[0:3]
@@ -76,7 +80,7 @@ add_buddy.grid(column=2, row=0)
 # Dropdown list - contributed by JameaPlays
 tz_data = pandas.read_csv("time_zones.csv")
 tz_dict = tz_data.to_dict(orient="records")
-new_tz_offset = 0
+new_buddy_tz = 0
 # Generates a list of strings for the dropdown menu
 tz_dropdown_list = [f"{tz['Name']} ({tz['Relative to GMT']})" for tz in tz_dict]
 

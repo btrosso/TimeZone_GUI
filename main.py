@@ -3,25 +3,25 @@ import pandas
 # -------------------------------CONSTANTS & Global Var-------------------------------#
 FONT_NAME = "Arial"
 DEFAULT_LIST_HEIGHT = 20
-buddy_dict = {
-    "name": "example name",
-    "tz_offset": 5
-}
+
+
+# -------------------------------Read from buddy database-------------------------------#
+buddy_file = pandas.read_csv("buddy_data.csv")
+buddy_dict = buddy_file.to_dict(orient="records")
+
 
 # -------------------------------TIME ZONE OFFSET-------------------------------#
 #  contributed by JameaPlays
-
-
 def select_tz(selection):
     """Assigns the time offset in hours to the new_tz_offset variable based on dropdown selection"""
-    global new_tz_offset
+    global new_buddy_tz
     selection = variable.get()
     # Gets the name of the timezone from the dropdown selection
     tz_selected = selection[0:3]
     for tz in tz_dict:
         if tz_selected == tz["Name"]:
             # Gets the time offset from GMT based on the dropdown selection
-            new_tz_offset = tz["Offset from GMT"]
+            new_buddy_tz = tz["Offset from GMT"]
 
 
 def listbox_used(event):
@@ -39,12 +39,15 @@ def add_buddy_to_list():
     It will add a new entry into the buddy_dict with the name and float offset value corresponding
         the time zone.
     """
-    global tz_dict, buddy_dict
+    global new_buddy_tz, buddy_dict
     name = buddy_name_entry.get()
-    tz = variable.get()
-    buddy_dict["name"] = name
-    # TODO: 1. pull the offset number from the tz_dict using the variable given from the dropdown
-    # buddy_dict["tz_offset"] =
+    new_buddy = {"name": name, "tz_offset": new_buddy_tz}
+    buddy_dict.append(new_buddy)
+    buddy_df = pandas.DataFrame(buddy_dict)
+    buddy_df.to_csv("buddy_data.csv", index=False)
+    listbox.insert(END, name)
+    buddy_name_entry.delete(0, END)
+    buddy_name_entry.insert(0, "Buddy Name")
 
 
 # -------------------------------SCREEN SETUP-------------------------------#
@@ -75,10 +78,9 @@ buddy_label.grid(column=0, row=0)
 
 # Listbox
 listbox = Listbox(frame1, width=15, height=16, bg="black", fg="white")
-# TODO: 2. use list comprehension to modify the buddy_list to read the values and grab only the names from buddy_dict
-buddy_list = ["Buddy 1", "Buddy 2"]
-for item in buddy_list:
-    listbox.insert(buddy_list.index(item), item)
+buddy_names = [buddy["name"] for buddy in buddy_dict]
+for item in buddy_names:
+    listbox.insert(buddy_names.index(item), item)
 listbox.bind("<<ListboxSelect>>", listbox_used)
 listbox.grid(column=0, row=1, rowspan=3)
 
@@ -92,21 +94,19 @@ add_buddy.grid(column=2, row=0)
 # Dropdown list - contributed by JameaPlays
 tz_data = pandas.read_csv("time_zones.csv")
 tz_dict = tz_data.to_dict(orient="records")
-new_tz_offset = 0
+new_buddy_tz = 0
 # Generates a list of strings for the dropdown menu
 tz_dropdown_list = [f"{tz['Name']} ({tz['Relative to GMT']})" for tz in tz_dict]
 
 variable = StringVar(value="Time Zones")
 tz_dropdown = OptionMenu(frame2, variable, *tz_dropdown_list, command=select_tz)
+tz_dropdown.config(highlightthickness=0, width=15, font=("Arial", 8, "bold"))
 tz_dropdown.grid(column=1, row=0, sticky="EW")
 
 
 buddy_name_entry = Entry(frame2, width=28)
 buddy_name_entry.grid(column=0, row=0, sticky="EW")
 buddy_name_entry.insert(0, "Buddy Name")
-
-
-
 
 
 root.mainloop()

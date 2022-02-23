@@ -1,6 +1,7 @@
 from tkinter import *
 import pandas
-from datetime import datetime
+from datetime import datetime, timedelta
+
 # -------------------------------CONSTANTS & Global Var-------------------------------#
 FONT_NAME = "Arial"
 DEFAULT_LIST_HEIGHT = 20
@@ -25,6 +26,7 @@ def select_tz(selection):
             # Gets the time offset from GMT based on the dropdown selection
             new_buddy_tz = tz["Offset from GMT"]
 
+
 # -----------------------------------TIME-------------------------------------#
 def get_time():
     """
@@ -45,30 +47,23 @@ def get_time():
     ct_minute = current_time[3:]
     if ct_hour > 12:
         ct_hour -= 12
-        is_afternoon = True
-    if is_afternoon:
-        ct.config(text=f"{str(ct_hour)}:{str(ct_minute)}pm")
+        ct.config(text=f"{ct_hour:02}:{ct_minute:02}pm")
     else:
-        ct.config(text=f"{str(ct_hour)}:{str(ct_minute)}am")
+        ct.config(text=f"{ct_hour:02}:{ct_minute:02}am")
+
 
 def get_buddy_time(event):
+    """Updates the buddy_time_text with the chosen buddy's local time based on their timezone"""
     global timer, buddy_dict
-    # TODO: JAMEA - I think there may be something up with the buddy_dict
     buddy_selection = listbox.get(listbox.curselection())
     buddy_offset = 0
-    # IGNORE THIS CODE BELOW
-    # for index in buddy_dict:
-    #     if buddy_dict[index]["name"] == buddy_selection:
-    #         buddy_offset += buddy_dict[index]["tz_offset"]
-    #     else:
-    #         pass
-    # for index in buddy_dict:
-    #     for key, value in buddy_dict[index]:
-    #         if buddy_dict[index]["name"] == buddy_selection:
-    #             print(buddy_dict[index]["tz_offset"])
-    print(buddy_dict)
-    print(buddy_selection)
-    print(buddy_offset)
+    for buddy in buddy_dict:
+        if buddy["name"] == buddy_selection:
+            buddy_offset += buddy["tz_offset"]
+    buddy_time = datetime.utcnow() + timedelta(hours=buddy_offset)
+    canvas1.itemconfig(buddy_time_text, text=f"{buddy_time.strftime('%H:%M')}")
+
+
 # -----------------------------------FUNCTIONS-------------------------------------#
 def listbox_used(event):
     """
@@ -80,7 +75,6 @@ def listbox_used(event):
 
 def add_buddy_to_list():
     """
-    Work in progress.
     This function will grab the name and timezone from the corresponding widgets.
     It will add a new entry into the buddy_dict with the name and float offset value corresponding
         the time zone.
@@ -110,10 +104,8 @@ canvas1.grid(column=1, row=1)
 # Display image
 canvas1.create_image(250, 150, image=bg)
 
-# TODO: 3. Turn this text into a clock that displays the current time for the selected buddy
-canvas1.create_text(250, 30, text="00:00", fill="white", font=("Arial", 20, "bold"))
-
-
+# Text for selected buddy's local timezone
+buddy_time_text = canvas1.create_text(250, 30, text="00:00", fill="white", font=("Arial", 20, "bold"))
 
 # create a frame for the buddy label and listbox
 frame1 = Frame(background="white", width=100, height=290, bg="black")

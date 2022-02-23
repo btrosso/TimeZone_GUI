@@ -1,8 +1,10 @@
 from tkinter import *
 import pandas
+from datetime import datetime
 # -------------------------------CONSTANTS & Global Var-------------------------------#
 FONT_NAME = "Arial"
 DEFAULT_LIST_HEIGHT = 20
+timer = None
 
 
 # -------------------------------Read from buddy database-------------------------------#
@@ -23,7 +25,51 @@ def select_tz(selection):
             # Gets the time offset from GMT based on the dropdown selection
             new_buddy_tz = tz["Offset from GMT"]
 
+# -----------------------------------TIME-------------------------------------#
+def get_time():
+    """
+    Function to get the current time on the user's machine and continually update it.
+    This is probably inelegant, but it works for now.
+    :return: configures the text in the ct label
+    """
+    global timer
 
+    timer = root.after(1000, get_time)
+    is_afternoon = False
+    now = datetime.now()
+    # string formatted time
+    current_time = now.strftime("%H:%M")
+    # convert the current time of user to an int
+    ct_hour = int(current_time[:2])
+    # not converting the minute to an int because the time zone differences only deal in hours
+    ct_minute = current_time[3:]
+    if ct_hour > 12:
+        ct_hour -= 12
+        is_afternoon = True
+    if is_afternoon:
+        ct.config(text=f"{str(ct_hour)}:{str(ct_minute)}pm")
+    else:
+        ct.config(text=f"{str(ct_hour)}:{str(ct_minute)}am")
+
+def get_buddy_time(event):
+    global timer, buddy_dict
+    # TODO: JAMEA - I think there may be something up with the buddy_dict
+    buddy_selection = listbox.get(listbox.curselection())
+    buddy_offset = 0
+    # IGNORE THIS CODE BELOW
+    # for index in buddy_dict:
+    #     if buddy_dict[index]["name"] == buddy_selection:
+    #         buddy_offset += buddy_dict[index]["tz_offset"]
+    #     else:
+    #         pass
+    # for index in buddy_dict:
+    #     for key, value in buddy_dict[index]:
+    #         if buddy_dict[index]["name"] == buddy_selection:
+    #             print(buddy_dict[index]["tz_offset"])
+    print(buddy_dict)
+    print(buddy_selection)
+    print(buddy_offset)
+# -----------------------------------FUNCTIONS-------------------------------------#
 def listbox_used(event):
     """
     This is just driver code and will most likely be altered or removed.
@@ -65,9 +111,9 @@ canvas1.grid(column=1, row=1)
 canvas1.create_image(250, 150, image=bg)
 
 # TODO: 3. Turn this text into a clock that displays the current time for the selected buddy
-canvas1.create_text(250, 30, text="Welcome", fill="white", font=("Arial", 20, "bold"))
+canvas1.create_text(250, 30, text="00:00", fill="white", font=("Arial", 20, "bold"))
 
-# TODO: 4. Create another canvas1.create_text to display the USERS current time
+
 
 # create a frame for the buddy label and listbox
 frame1 = Frame(background="white", width=100, height=290, bg="black")
@@ -81,7 +127,7 @@ listbox = Listbox(frame1, width=15, height=16, bg="black", fg="white")
 buddy_names = [buddy["name"] for buddy in buddy_dict]
 for item in buddy_names:
     listbox.insert(buddy_names.index(item), item)
-listbox.bind("<<ListboxSelect>>", listbox_used)
+listbox.bind("<<ListboxSelect>>", get_buddy_time)
 listbox.grid(column=0, row=1, rowspan=3)
 
 # create a frame for the add_buddy widgets
@@ -90,6 +136,14 @@ canvas1.create_window(120, 270, window=frame2, anchor='nw')
 
 add_buddy = Button(frame2, text="Add", command=add_buddy_to_list)
 add_buddy.grid(column=2, row=0)
+
+# frame for user current time
+frame3 = Frame(background="black", width=80, height=50)
+canvas1.create_window(420, 10, window=frame3, anchor='nw')
+user_ct_label = Label(frame3, text="User Time", bg="black", fg="white")
+user_ct_label.grid(column=0, row=0)
+ct = Label(frame3, text="00:00", bg="black", fg="white", font=("Arial", 10, "bold"))
+ct.grid(column=0, row=1)
 
 # Dropdown list - contributed by JameaPlays
 tz_data = pandas.read_csv("time_zones.csv")
@@ -108,5 +162,5 @@ buddy_name_entry = Entry(frame2, width=28)
 buddy_name_entry.grid(column=0, row=0, sticky="EW")
 buddy_name_entry.insert(0, "Buddy Name")
 
-
+get_time()
 root.mainloop()

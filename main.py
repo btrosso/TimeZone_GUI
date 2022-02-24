@@ -149,7 +149,7 @@ remove_buddy = Button(frame2, text="Remove", command=remove_buddy_from_list)
 remove_buddy.grid(column=3, row=0)
 
 buddy_name_entry = Entry(frame2, width=25)
-buddy_name_entry.grid(column=0, row=0, sticky="EW")
+buddy_name_entry.grid(column=0, row=0, padx=3)
 buddy_name_entry.insert(0, "Buddy Name")
 
 # frame for user current time

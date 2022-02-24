@@ -13,7 +13,7 @@ buddy_file = pandas.read_csv("buddy_data.csv")
 buddy_dict = buddy_file.to_dict(orient="records")
 
 
-# -------------------------------TIME ZONE OFFSET-------------------------------#
+# ----------------------------------TIME ZONE OFFSET--------------------------------------#
 #  contributed by JameaPlays
 def select_tz(selection):
     """Assigns the time offset in hours to the new_tz_offset variable based on dropdown selection"""
@@ -27,7 +27,7 @@ def select_tz(selection):
             new_buddy_tz = tz["Offset from GMT"]
 
 
-# -----------------------------------TIME-------------------------------------#
+# ------------------------------------------TIME-----------------------------------------#
 def get_time():
     """
     Function to get the current time on the user's machine and continually update it.

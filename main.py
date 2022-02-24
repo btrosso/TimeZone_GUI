@@ -20,9 +20,9 @@ def select_tz(selection):
     global new_buddy_tz
     selection = variable.get()
     # Gets the name of the timezone from the dropdown selection
-    tz_selected = selection[0:3]
+    tz_selected = selection.split("(")
     for tz in tz_dict:
-        if tz_selected == tz["Name"]:
+        if tz_selected[0].strip(" ") == tz["Name"] and tz_selected[1][:-1] in tz["Relative to GMT"]:
             # Gets the time offset from GMT based on the dropdown selection
             new_buddy_tz = tz["Offset from GMT"]
 
@@ -37,19 +37,9 @@ def get_time():
     global timer
 
     timer = root.after(1000, get_time)
-    is_afternoon = False
     now = datetime.now()
-    # string formatted time
-    current_time = now.strftime("%H:%M")
-    # convert the current time of user to an int
-    ct_hour = int(current_time[:2])
-    # not converting the minute to an int because the time zone differences only deal in hours
-    ct_minute = current_time[3:]
-    if ct_hour > 12:
-        ct_hour -= 12
-        ct.config(text=f"{ct_hour:02}:{ct_minute:02}pm")
-    else:
-        ct.config(text=f"{ct_hour:02}:{ct_minute:02}am")
+    cur_time = now.strftime('%I:%M %p')
+    ct.config(text=f"{cur_time}")
 
 
 def get_buddy_time(event):
@@ -61,7 +51,7 @@ def get_buddy_time(event):
         if buddy["name"] == buddy_selection:
             buddy_offset += buddy["tz_offset"]
     buddy_time = datetime.utcnow() + timedelta(hours=buddy_offset)
-    canvas1.itemconfig(buddy_time_text, text=f"{buddy_time.strftime('%H:%M')}")
+    canvas1.itemconfig(buddy_time_text, text=f"{buddy_time.strftime('%I:%M %p')}")
 
 
 # -----------------------------------FUNCTIONS-------------------------------------#
@@ -90,7 +80,32 @@ def add_buddy_to_list():
     buddy_name_entry.insert(0, "Buddy Name")
 
 
-# -------------------------------SCREEN SETUP-------------------------------#
+def remove_buddy_from_list():
+    """
+    Removes a buddy from the list_box and calls refresh_listbox to update the contents of the list box.
+    """
+    global buddy_dict, buddy_names
+    buddy_selection = listbox.get(listbox.curselection())
+    for i in buddy_dict:
+        if i["name"] == buddy_selection:
+            buddy_dict.remove(i)
+            df_buddy_dict = pandas.DataFrame(buddy_dict)
+            df_buddy_dict.to_csv("buddy_data.csv")
+    refresh_listbox()
+
+
+def refresh_listbox():
+    """
+    Will clear the list box and reload the contents from the updated buddy_dict after removing a buddy.
+    """
+    global buddy_names
+    listbox.delete(0, END)
+    buddy_names = [buddy["name"] for buddy in buddy_dict]
+    for bud in buddy_names:
+        listbox.insert(buddy_names.index(bud), bud)
+
+
+# -------------------------------User Interface-------------------------------#
 # main window
 root = Tk()
 root.title("TimeZone Buddy App")
@@ -105,7 +120,8 @@ canvas1.grid(column=1, row=1)
 canvas1.create_image(250, 150, image=bg)
 
 # Text for selected buddy's local timezone
-buddy_time_text = canvas1.create_text(250, 30, text="00:00", fill="white", font=("Arial", 20, "bold"))
+canvas1.create_text(250, 20, text="Buddy Current Time", fill="white", font=("Arial", 10))
+buddy_time_text = canvas1.create_text(250, 50, text="00:00", fill="white", font=("Arial", 20, "bold"))
 
 # create a frame for the buddy label and listbox
 frame1 = Frame(background="white", width=100, height=290, bg="black")
@@ -122,12 +138,19 @@ for item in buddy_names:
 listbox.bind("<<ListboxSelect>>", get_buddy_time)
 listbox.grid(column=0, row=1, rowspan=3)
 
-# create a frame for the add_buddy widgets
+# create a frame for the add_buddy  and remove_buddy widgets
 frame2 = Frame(background="black", width=375, height=30)
 canvas1.create_window(120, 270, window=frame2, anchor='nw')
 
 add_buddy = Button(frame2, text="Add", command=add_buddy_to_list)
 add_buddy.grid(column=2, row=0)
+
+remove_buddy = Button(frame2, text="Remove", command=remove_buddy_from_list)
+remove_buddy.grid(column=3, row=0)
+
+buddy_name_entry = Entry(frame2, width=25)
+buddy_name_entry.grid(column=0, row=0, sticky="EW")
+buddy_name_entry.insert(0, "Buddy Name")
 
 # frame for user current time
 frame3 = Frame(background="black", width=80, height=50)
@@ -138,7 +161,7 @@ ct = Label(frame3, text="00:00", bg="black", fg="white", font=("Arial", 10, "bol
 ct.grid(column=0, row=1)
 
 # Dropdown list - contributed by JameaPlays
-tz_data = pandas.read_csv("time_zones.csv")
+tz_data = pandas.read_csv("time_zones_2.csv")
 tz_dict = tz_data.to_dict(orient="records")
 new_buddy_tz = 0
 # Generates a list of strings for the dropdown menu
@@ -148,11 +171,6 @@ variable = StringVar(value="Time Zones")
 tz_dropdown = OptionMenu(frame2, variable, *tz_dropdown_list, command=select_tz)
 tz_dropdown.config(highlightthickness=0, width=15, font=("Arial", 8, "bold"))
 tz_dropdown.grid(column=1, row=0, sticky="EW")
-
-
-buddy_name_entry = Entry(frame2, width=28)
-buddy_name_entry.grid(column=0, row=0, sticky="EW")
-buddy_name_entry.insert(0, "Buddy Name")
 
 get_time()
 root.mainloop()

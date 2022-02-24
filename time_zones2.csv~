@@ -1,0 +1,125 @@
+﻿Name,Description,Relative to GMT,Offset from GMT
+ACDT,Australian Central Daylight Time,GMT/UTC+10:30,10.5
+ACST,Australian Central Standard Time,GMT/UTC+9:30,9.5
+ADT,Atlantic Daylight Time,GMT/UTC−3,-3
+AEDT,Australian Eastern Daylight Time,GMT/UTC+11,11
+AEST,Australian Eastern Standard Time,GMT/UTC+10,10
+AFT,Afghanistan Time,GMT/UTC+4:30,4.5
+AKDT,Alaska Daylight Time,GMT/UTC−8,-8
+AKST,Alaska Standard Time,GMT/UTC−9,-9
+AMT,Armenia Time,GMT+4,4
+ART,Argentina Time,GMT/UTC−3,-3
+AST,"Arabia Standard Time (Riyadh, Baghdad)",GMT/UTC+3,3
+AST,Atlantic Standard Time,GMT/UTC−4,-4
+AWDT,Australian Western Daylight Time,GMT/UTC+9,9
+AWST,Australian Western Standard Time,GMT/UTC+8,8
+AZOST,Azores Summer Time,GMT/UTC−1,-1
+AZT,Azerbaijan Time,GMT/UTC+4,4
+BIOT,British Indian Ocean Time,GMT/UTC+6,6
+BIT,Baker Island Time,GMT/UTC−12,-12
+BNT,Brunei Time,GMT/UTC+8,8
+BOT,Bolivia Time,GMT/UTC−4,-4
+BRT,"Brasilia Time (Sao Paulo, Rio De Janeiro)",GMT/UTC−3,-3
+BST,Bangladesh Standard Time,GMT/UTC+6,6
+BST,British Summer Time,GMT/UTC+1,1
+BTT,Bhutan Time,GMT/UTC+6,6
+CAT,Central Africa Time,GMT/UTC+2,2
+CCT,Cocos Islands Time,GMT/UTC+6:30,6.5
+CDT,Central Daylight Time (North America),GMT/UTC−5,-5
+CEDT / CEST,Central European Daylight (Summer) Time,GMT/UTC+2,2
+CET,Central European Time,GMT/UTC+1,1
+CHADT,Chatham Daylight Time,GMT/UTC+13:45,13.75
+CHAST,Chatham Standard Time,GMT/UTC+12:45,12.75
+CHST,Chamorro Standard Time,GMT/UTC+10,10
+CIST,Clipperton Island Standard Time,GMT/UTC−8,-8
+CKT,Cook Island Time,GMT/UTC−10,-10
+CLST,Chile Summer Time,GMT/UTC−3,-3
+CLT,Chile Standard Time,GMT/UTC−4,-4
+COT,Colombia Time,GMT/UTC−5,-5
+CST,Central Standard Time (North America),GMT/UTC−6,-6
+CST,China Standard Time,GMT/UTC+8,8
+CVT,Cape Verde Time,GMT/UTC−1,-1
+CXT,Christmas Island Time,GMT/UTC+7,7
+DFT,AIX specific equivalent of Central European Time,GMT/UTC+1,1
+EAST,Easter Island Standard Time,GMT/UTC−6,-6
+EAT,East Africa Time,GMT/UTC+3,3
+ECT,Eastern Caribbean Time,GMT/UTC−4,-4
+ECT,Ecuador Time,GMT/UTC−5,-5
+EDT,Eastern Daylight Time (North America),GMT/UTC−4,-4
+EEDT (EEST),Eastern European Daylight (Summer) Time,GMT/UTC+3,3
+EET,Eastern European Time,GMT/UTC+2,2
+EST,Eastern Standard Time (North America),GMT/UTC−5,-5
+FJT,Fiji Standard Time,GMT/UTC+12,12
+FKST,Falkland Islands Summer Time,GMT/UTC−3,-3
+FKT,Falkland Islands Time,GMT/UTC−4,-4
+GALT,Galapagos Time,GMT/UTC−6,-6
+GET,Georgia Standard Time,GMT/UTC+4,4
+GFT,French Guiana Time,GMT/UTC−3,-3
+GILT,Gilbert Island Time,GMT/UTC+12,12
+GIT,Gambier Island Time,GMT/UTC−9,-9
+GMT,Greenwich Mean Time,GMT/UTC+0,0
+GST,South Georgia and the South Sandwich Islands,GMT/UTC−2,-2
+GST,Gulf Standard Time (Abu Dhabi),GMT/UTC+4,4
+GYT,Guyana Time,GMT/UTC−4,-4
+HADT,Hawaii-Aleutian Daylight Time,GMT/UTC−9,-9
+HAEC,Heure Avancée d'Europe Centrale French for CEST,GMT/UTC+2,2
+HAST,Hawaii-Aleutian Standard Time,GMT/UTC−10,-10
+HKT,Hong Kong Time,GMT/UTC+8,8
+HMT,Heard and McDonald Islands Time,GMT/UTC+5,5
+HST,Hawaii Standard Time,GMT/UTC−10,-10
+ICT,Indochina Time,GMT/UTC+7,7
+IDT,Israel Daylight Time,GMT/UTC+3,3
+IRKT,Irkutsk Time,GMT/UTC+8,8
+IRST,Iran Standard Time,GMT/UTC+3:30,3.5
+IST,India Standard Time,GMT/UTC+5:30,5.5
+IST,Irish Summer Time,GMT/UTC+1,1
+IST,Israel Standard Time,GMT/UTC+2,2
+JST,Japan Standard Time,GMT/UTC+9,9
+KRAT,Krasnoyarsk Time (Russia time zone 6),GMT/UTC+7,7
+KST,Korea Standard Time,GMT/UTC+9,9
+LHST,Lord Howe Standard Time,GMT/UTC+10:30,10.5
+LINT,Line Islands Time,GMT/UTC+14,14
+MAGT,Magadan Time (Russia time zone 10),GMT/UTC+11,11
+MDT,Mountain Daylight Time (North America),GMT/UTC−6,-6
+MEST,Middle European Saving Time (same as CEST),GMT/UTC+2,2
+MET,Middle European Time (same as CET),GMT/UTC+1,1
+MIT,Marquesas Islands Time,GMT/UTC−9:30,-9.5
+MSK,Moscow Standard Time (Russia time zone 2),GMT/UTC+3,3
+MST,Mountain Standard Time (North America),GMT/UTC−7,-7
+MST,Myanmar Standard Time,GMT/UTC+6:30,6.5
+MST (MYT),Malaysia Standard Time,GMT/UTC+8,8
+MUT,Mauritius Time,GMT/UTC+4,4
+MYT,Malaysian Time,GMT/UTC+8,8
+NDT,Newfoundland Daylight Time,GMT/UTC−2:30,-2.5
+NFT,Norfolk Time,GMT/UTC+11:30,11.5
+NPT,Nepal Time,GMT/UTC+5:45,5.75
+NST,Newfoundland Standard Time,GMT/UTC−3:30,-3.5
+NZDT,New Zealand Daylight Time,GMT/UTC+13,13
+NZST,New Zealand Standard Time,GMT/UTC+12,12
+OMST,Omsk Time,GMT/UTC+6,6
+PDT,Pacific Daylight Time (North America),GMT/UTC−7,-7
+PETT,Kamchatka Time (Russia time zone 11),GMT/UTC+12,12
+PHOT,Phoenix Island Time,GMT/UTC+13,13
+PKT,Pakistan Standard Time,GMT/UTC+5,5
+PST,Pacific Standard Time (North America),GMT/UTC−8,-8
+PST,Philippines Standard Time,GMT/UTC+8,8
+RET,Réunion Time,GMT/UTC+4,4
+SAMT,Samara Time (Russia time zone 3),GMT/UTC+4,4
+SAST,South African Standard Time,GMT/UTC+2,2
+SBT,Solomon Islands Time,GMT/UTC+11,11
+SCT,Seychelles Time,GMT/UTC+4,4
+SGT,Singapore Time,GMT/UTC+8,8
+SLT,Sri Lanka Time,GMT/UTC+5:30,5.5
+SST,Samoa Standard Time,GMT−11,-11
+SST (same as SGT),Singapore Standard Time,GMT/UTC+8,8
+TAHT,Tahiti Time,GMT/UTC−10,-10
+THA,Thailand Standard Time,GMT/UTC+7,7
+UYST,Uruguay Summer Time (not in use),GMT/UTC−2,-2
+UYT,Uruguay Standard Time,GMT/UTC−3,-3
+VET,Venezuelan Standard Time,GMT/UTC−4,-4
+VLAT,Vladivostok Time (Russia time zone 9),GMT/UTC+10,10
+WAT,West Africa Time,GMT/UTC+1,1
+WEDT (WEST),Western European Daylight (Summer) Time,GMT/UTC+1,1
+WET,Western European Time,GMT/UTC+0,0
+YAKT,Yakutsk Time (Russia time zone 8),GMT/UTC+9,9
+YEKT,Yekaterinburg Time (Russia time zone 4),GMT/UTC+5,5
